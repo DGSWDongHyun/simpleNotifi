@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.simple.simplenotification_2.Alarm
 import com.simple.simplenotification_2.R
 import com.simple.simplenotification_2.ui.adapter.listener.onClickItemListener
+import java.text.SimpleDateFormat
 
 class AlarmAdapter(private val aContext: Context, private val listener: onClickItemListener) : RecyclerView.Adapter<RecyclerView.ViewHolder?>() {
 
@@ -38,10 +39,11 @@ class AlarmAdapter(private val aContext: Context, private val listener: onClickI
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val (title, contents) = alarmData!![position]
+        val (title, contents, calendar) = alarmData!![position]
         if(holder is AlarmViewHolder){
             holder.title.text = title
             holder.contents.text = contents
+            holder.calendar.text = SimpleDateFormat("yyyy.MM.dd , HH:mm분").format(calendar.time)
             holder.itemView.setOnClickListener { v: View? -> listener.onClickItemListener(position, alarmData!![position]) }
         }
 
@@ -54,6 +56,7 @@ class AlarmAdapter(private val aContext: Context, private val listener: onClickI
     inner class AlarmViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title = itemView.findViewById<TextView>(R.id.titleText)
         val contents = itemView.findViewById<TextView>(R.id.contentText)
+        val calendar = itemView.findViewById<TextView>(R.id.calendarText)
     }
 
 }
