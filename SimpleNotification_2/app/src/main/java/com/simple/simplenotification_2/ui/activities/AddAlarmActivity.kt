@@ -76,6 +76,18 @@ class AddAlarmActivity : AppCompatActivity() {
         val triggerTime = (calendar.timeInMillis)
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent)
         Toast.makeText(this, "알림이 등록되었습니다.", Toast.LENGTH_LONG).show()
+
+        initLayout()
+    }
+
+    private fun initLayout(){
+        val calendar = Calendar.getInstance()
+
+        addAlarmBinding.titleEditText.text.clear()
+        addAlarmBinding.contentEditText.text.clear()
+        addAlarmBinding.datePicker.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+        addAlarmBinding.timePicker.hour = calendar.get(Calendar.HOUR_OF_DAY)
+        addAlarmBinding.timePicker.minute = calendar.get(Calendar.MINUTE)
     }
 
     private fun calendarDataSet(calendar : Calendar) {
